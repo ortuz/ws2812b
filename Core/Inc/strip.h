@@ -16,7 +16,7 @@
 #define COLORS_PER_LED 3
 #define DMA_CIRCULAR_BUFFER_LENGTH 2 * BITS_PER_COLOR * COLORS_PER_LED
 
-enum StringStatus
+enum StripStatus
 {
     READY = 0,
     SENDING_LEDS,
@@ -37,9 +37,19 @@ private:
     uint16_t pwm_false;
 
     uint32_t transfer_counter = 0;
-    StringStatus status = READY;
+    uint32_t delay_counter = 0;
+    StripStatus status = READY;
 
-    uint16_t dma_circular_buffer[DMA_CIRCULAR_BUFFER_LENGTH];
+    uint16_t dma_circular_buffer[2][BITS_PER_COLOR * COLORS_PER_LED];
+    uint32_t dma_delay_buffer[DMA_CIRCULAR_BUFFER_LENGTH];
+    uint16_t dma_circular_buffer_index = 0;
+
+    void set_timing_values();
+    void set_status(StripStatus status);
+    void zero_delay_buffer();
+
+    void convert_color_byte(uint8_t color, uint16_t buffer[]);
+    void write_led_in_buffer(uint32_t led_index);
 
     void send_leds();
     void send_delay();
@@ -57,8 +67,10 @@ public:
     uint8_t get_green(uint32_t index) const;
     uint8_t get_blue(uint32_t index) const;
 
+    StripStatus get_status();
+
+    void update();
     void clear();
-    void update() const;
 
     void dma_callback();
 };
