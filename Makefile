@@ -68,7 +68,9 @@ Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 
 CXX_SOURCES = \
-Core/Src/main.cpp
+Core/Src/main.cpp \
+Core/Src/strip.cpp \
+Core/Src/led/cpp
 
 # ASM sources
 ASM_SOURCES =  \
