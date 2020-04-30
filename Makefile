@@ -70,7 +70,7 @@ Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c
 CXX_SOURCES = \
 Core/Src/main.cpp \
 Core/Src/strip.cpp \
-Core/Src/led/cpp
+Core/Src/led.cpp
 
 # ASM sources
 ASM_SOURCES =  \
